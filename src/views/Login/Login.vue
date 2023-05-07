@@ -12,18 +12,25 @@
 					<el-form ref="form" :model="LoginForm" label-width="auto" :label-position="labelPosition"
 						:size="size">
 						<el-form-item>
-							<el-input v-model="LoginForm.Name" placeholder="请输入账户名">
+							<el-input v-model="LoginForm.UserName" placeholder="请输入账户名">
 								<template #prepend>
-									<el-button :icon="User" />
+									<el-button icon="User" />
 								</template>
 							</el-input>
 						</el-form-item>
 						<el-form-item>
 							<el-input type="password" v-model="LoginForm.PassWord" placeholder="请输入密码">
 								<template #prepend>
-									<el-button :icon="Hide" />
+									<el-button icon="Lock" />
 								</template>
 							</el-input>
+						</el-form-item>
+						<el-form-item>
+							<!-- 记住密码 -->
+							<el-checkbox v-model="rememberSysUser">记住账户密码</el-checkbox>
+						</el-form-item>
+						<el-form-item>
+							<el-button type="primary" class="LoginSubmit" @click="SubmitLogin">登录</el-button>
 						</el-form-item>
 					</el-form>
 				</div>
@@ -55,28 +62,67 @@
 		reactive,
 		onMounted
 	} from 'vue'
+	// import {ElLoading} from 'element-plus'
 	import utils from '../../utils/index.js'
+	import {Base64} from 'js-base64'
 	import {
-		User,
-		Hide
-	} from '@element-plus/icons-vue'
+		useRouter
+	} from 'vue-router'
+	import axios from 'axios';
 	const Copyright = ref('')
 	onMounted(() => {
 		Copyright.value = '妖怪得懒癌管理系统'
-	})
 
+		//-----------------检测是否保存密码--------------------
+		let userid = localStorage.getItem('MonsterUserID')
+		
+		console.log(userid)
+		if (userid) {
+			LoginForm.UserName = localStorage.getItem('MonsterUserID');
+			LoginForm.PassWord = Base64.decode(localStorage.getItem('MonsterUserPassWord')); // base64解密
+			//SubmitLogin()//自动登录
+		}
+	})
 
 	// 提交框输入大小
 	const size = ref('large')
 	const labelPosition = ref('right')
 
+	//-------------登录账户密码设置及登录---------------
+	const router = useRouter()
+	const rememberSysUser = ref(true)
 	const LoginForm = reactive({
-		Name: '',
+		UserName: '',
 		PassWord: '',
 	})
-
-	function onSubmit() {
-		console.log('submit!')
+	const SubmitLogin = () => {
+		axios.post('api/Login', LoginForm).then((e) => {
+			if (e.data.code == 200) {
+				router.push('Index')
+				rememberUser()
+				utils.showSuccess('登陆成功,欢迎使用!')
+			} else {
+				utils.showWarning('账户或密码错误!')
+			}
+		}).catch((e) => {
+			console.log(JSON.stringify(e))
+		})
+		// console.log(import.meta.env.VITE_BASE_API)
+	}
+	//记住账户密码
+	const rememberUser = () => {
+		// console.log(rememberSysUser.value)
+		if (rememberSysUser.value) {
+			let password = Base64.encode(LoginForm.PassWord); // base64加密
+			// console.log(password)
+			localStorage.setItem('MonsterUserID',LoginForm.UserName);
+			localStorage.setItem('MonsterUserPassWord', password);
+			console.log(localStorage.getItem('MonsterUserID'))
+		}
+		else{
+			localStorage.removeItem('MonsterUserID')
+			localStorage.removeItem('MonsterUserPassWord')
+		}
 	}
 </script>
 
