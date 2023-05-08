@@ -54,6 +54,7 @@
 .LoginContainer .L-right-Form {
 	flex: 6;
 	height: 99.7%;
+	overflow: hidden;
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -77,6 +78,9 @@
 	width: 90%;
 	margin-top: 25%;
 }
+.LoginContainer .L-right-Form  .Logincontent .LoginSubmit.el-button--large{
+	width: 100%;
+}
 
 .LoginContainer .L-right-Form  .Logincontent .el-input-group__append, .el-input-group__prepend {
   background-color:var(--el-color-white);
@@ -88,8 +92,9 @@
 	line-height: 4rem;
 	position: absolute;
 	/* left: 0; */
-	top: 5%;
+	top: 0.625rem;
 	text-align: center;
 	font-size: 1.25rem;
+	font-weight: bold;
 	border-bottom: 1px solid #dcdcdc;
 }

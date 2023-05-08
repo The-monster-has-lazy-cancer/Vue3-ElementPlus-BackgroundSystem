@@ -92,7 +92,7 @@ const utils = {
 	showSuccess(msg) {
 		return ElMessage({
 			grouping: true,
-			message: msg,
+			message:msg,
 			type: 'success',
 		})
 	},
@@ -100,7 +100,7 @@ const utils = {
 	showError(msg) {
 		return ElMessage({
 			grouping: true,
-			message: msg,
+			message:msg,
 			type: 'error',
 		})
 	},
@@ -108,7 +108,7 @@ const utils = {
 	showWarning(msg) {
 		return ElMessage({
 			grouping: true,
-			message: msg,
+			message:msg,
 			type: 'warning',
 		})
 	},
@@ -116,7 +116,7 @@ const utils = {
 	showDefault(msg) {
 		return ElMessage({
 			grouping: true,
-			message: msg,
+			message:msg,
 			type: 'info',
 		})
 	}

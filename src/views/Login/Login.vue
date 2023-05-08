@@ -9,26 +9,13 @@
 					妖怪系统登录
 				</div>
 				<div class="Logincontent">
-					<el-form ref="form" :model="LoginForm" label-width="auto" :label-position="labelPosition"
-						:size="size">
-						<el-form-item>
-							<el-input v-model="LoginForm.UserName" placeholder="请输入账户名">
-								<template #prepend>
-									<el-button icon="User" />
-								</template>
-							</el-input>
-						</el-form-item>
-						<el-form-item>
-							<el-input type="password" v-model="LoginForm.PassWord" placeholder="请输入密码">
-								<template #prepend>
-									<el-button icon="Lock" />
-								</template>
-							</el-input>
-						</el-form-item>
-						<el-form-item>
-							<!-- 记住密码 -->
-							<el-checkbox v-model="rememberSysUser">记住账户密码</el-checkbox>
-						</el-form-item>
+					<el-form ref="form" :model="LoginForm" label-width="auto" :label-position="labelPosition" :size="size">
+						<el-input v-model="LoginForm.UserName" prefix-icon="User" placeholder="请输入账户名" />
+						<br>
+						<br>
+						<el-input type="password" v-model="LoginForm.PassWord" prefix-icon="Lock" placeholder="请输入密码" />
+						<!-- 记住密码 -->
+						<el-checkbox v-model="rememberSysUser">记住账户密码</el-checkbox>
 						<el-form-item>
 							<el-button type="primary" class="LoginSubmit" @click="SubmitLogin">登录</el-button>
 						</el-form-item>
@@ -38,8 +25,6 @@
 		</div>
 		<div class="footer">
 			&copy;&nbsp;{{Copyright}}&nbsp;&nbsp;{{utils.Year}}
-
-
 			<div v-show="false" style="position: fixed;bottom: 0;right: 0;">
 				<el-radio-group v-model="size" label="size control">
 					<el-radio-button label="large">large</el-radio-button>
@@ -64,7 +49,9 @@
 	} from 'vue'
 	// import {ElLoading} from 'element-plus'
 	import utils from '../../utils/index.js'
-	import {Base64} from 'js-base64'
+	import {
+		Base64
+	} from 'js-base64'
 	import {
 		useRouter
 	} from 'vue-router'
@@ -72,15 +59,12 @@
 	const Copyright = ref('')
 	onMounted(() => {
 		Copyright.value = '妖怪得懒癌管理系统'
-
 		//-----------------检测是否保存密码--------------------
 		let userid = localStorage.getItem('MonsterUserID')
-		
-		console.log(userid)
 		if (userid) {
 			LoginForm.UserName = localStorage.getItem('MonsterUserID');
 			LoginForm.PassWord = Base64.decode(localStorage.getItem('MonsterUserPassWord')); // base64解密
-			//SubmitLogin()//自动登录
+			//SubmitLogin()
 		}
 	})
 
@@ -111,15 +95,11 @@
 	}
 	//记住账户密码
 	const rememberUser = () => {
-		// console.log(rememberSysUser.value)
 		if (rememberSysUser.value) {
 			let password = Base64.encode(LoginForm.PassWord); // base64加密
-			// console.log(password)
-			localStorage.setItem('MonsterUserID',LoginForm.UserName);
+			localStorage.setItem('MonsterUserID', LoginForm.UserName);
 			localStorage.setItem('MonsterUserPassWord', password);
-			console.log(localStorage.getItem('MonsterUserID'))
-		}
-		else{
+		} else {
 			localStorage.removeItem('MonsterUserID')
 			localStorage.removeItem('MonsterUserPassWord')
 		}
