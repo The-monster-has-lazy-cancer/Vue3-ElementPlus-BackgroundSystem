@@ -4,7 +4,6 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 //mode代表运行环境
 //loadEnv在congfig中加载环境变量
-//测试拉取
 export default({mode})=>{
 	const env = loadEnv(mode,process.cwd())
 	return defineConfig({
