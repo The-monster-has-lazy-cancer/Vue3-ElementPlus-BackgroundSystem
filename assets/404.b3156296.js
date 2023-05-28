@@ -1,0 +1,1 @@
+import{p as a,m as s,e,f as t}from"./vendor.fe7b9c30.js";const c={};a("data-v-6f7189bc");const o={class:"404page"};s(),c.render=function(a,s){return e(),t("div",o," 404 ")},c.__scopeId="data-v-6f7189bc";export{c as default};

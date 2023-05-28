@@ -1,1 +1,0 @@
-import{r as e,o as a,d as l,e as o,f as s,i as t}from"./vendor.3a273f4f.js";const u={setup(u){const n=e(0);return a((()=>{alert("xxxx")})),(e,a)=>{const u=l("el-input");return o(),s("div",{onClick:a[1]||(a[1]=e=>n.value++)},[t(u,{modelValue:n.value,"onUpdate:modelValue":a[0]||(a[0]=e=>n.value=e)},null,8,["modelValue"])])}}};export{u as default};

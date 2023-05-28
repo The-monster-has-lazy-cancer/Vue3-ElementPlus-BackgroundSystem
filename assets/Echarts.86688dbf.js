@@ -1,0 +1,1 @@
+import{r as e,o as a,d as l,e as s,f as o,i as t,k as u}from"./vendor.fe7b9c30.js";const r=u(" Echarts "),n={setup(u){const n=e(0);return a((()=>{alert("xxxx")})),(e,a)=>{const u=l("el-input");return s(),o("div",{onClick:a[1]||(a[1]=e=>n.value++)},[r,t(u,{modelValue:n.value,"onUpdate:modelValue":a[0]||(a[0]=e=>n.value=e)},null,8,["modelValue"])])}}};export{n as default};
